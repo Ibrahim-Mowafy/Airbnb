@@ -64,6 +64,7 @@ export default function Home() {
           </span>
         </a>
       </footer>
+      <p className='text-2xl text-cyan-400'>test for tailwind css</p>
     </div>
   )
 }
