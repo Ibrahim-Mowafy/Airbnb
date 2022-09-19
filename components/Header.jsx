@@ -2,11 +2,10 @@ import Image from 'next/image';
 import React from 'react';
 import {
   MagnifyingGlassIcon,
-  GlobeAltIcon,
-  UserIcon,
   UserCircleIcon,
   Bars3Icon,
 } from '@heroicons/react/24/solid';
+import { GlobeAltIcon } from '@heroicons/react/24/outline';
 
 const Header = () => {
   return (
