@@ -13,7 +13,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10">
       <div className="relative flex items-center h-10 cursor-pointer my-auto">
         <Image
-          src="https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src="https://links.papareact.com/qd3"
           alt="Airbnb Logo"
           layout="fill"
           objectFit="contain"

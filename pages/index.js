@@ -8,63 +8,51 @@ import Footer from '../components/Footer';
 
 const DUMMY_EXPLORE = [
   {
-    img: 'https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    img: 'https://links.papareact.com/5j2',
     location: 'London',
     distance: '45-minute drive',
   },
   {
-    img: 'https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    img: 'https://links.papareact.com/5j2',
     location: 'Manchester',
     distance: '45-minute drive',
   },
   {
-    img: 'https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    img: 'https://links.papareact.com/5j2',
     location: 'Liverpool',
     distance: '45-minute drive',
   },
   {
-    img: 'https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    img: 'https://links.papareact.com/5j2',
     location: 'York',
     distance: '45-minute drive',
   },
   {
-    img: 'https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    img: 'https://links.papareact.com/5j2',
     location: 'Cardiff',
     distance: '45-minute drive',
   },
   {
-    img: 'https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    img: 'https://links.papareact.com/5j2',
     location: 'Birkenhead',
     distance: '45-minute drive',
   },
   {
-    img: 'https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    img: 'https://links.papareact.com/5j2',
     location: 'Newquay',
     distance: '45-minute drive',
   },
   {
-    img: 'https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    img: 'https://links.papareact.com/5j2',
     location: 'Hove',
     distance: '45-minute drive',
   },
 ];
 const DUMMY_CARD_DATA = [
-  {
-    img: 'https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    title: 'Outdoor getaways',
-  },
-  {
-    img: 'https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    title: 'Unique stays',
-  },
-  {
-    img: 'https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    title: 'Entries Home',
-  },
-  {
-    img: 'https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    title: 'Pet allowed',
-  },
+  { img: 'https://links.papareact.com/2io', title: 'Outdoor getaways' },
+  { img: 'https://links.papareact.com/s03', title: 'Unique stays' },
+  { img: 'https://links.papareact.com/2io', title: 'Entries Home' },
+  { img: 'https://links.papareact.com/8ix', title: 'Pet allowed' },
 ];
 
 export default function Home({ exploreData, cardsData }) {
@@ -111,12 +99,13 @@ export default function Home({ exploreData, cardsData }) {
         </section>
 
         <LargeCard
-          img="https://images.pexels.com/photos/10511470/pexels-photo-10511470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          img="https://links.papareact.com/4cj"
           title="The Greatest Outdoors"
           description="Wishlists curated by Airbnb"
           buttonText="Get Inspired"
         />
       </main>
+
       <Footer />
     </>
   );
