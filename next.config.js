@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['links.papareact.com'],
+    domains: ['images.pexels.com'],
   },
   i18n: {
     locales: ['en'],
