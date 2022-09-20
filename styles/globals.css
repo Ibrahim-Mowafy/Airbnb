@@ -1,5 +1,10 @@
 @tailwind base;
 @tailwind components;
+@layer components {
+  .button {
+    @apply px-4 py-2 border rounded-full cursor-pointer hover:shadow-lg active:scale-95 active:bg-gray-100 transition transform duration-150 ease-out;
+  }
+}
 @tailwind utilities;
 
 html,
@@ -28,3 +33,20 @@ a {
     background: black;
   }
 } */
+
+input {
+  caret-color: #fd5b61;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #fd5b61;
+  border-radius: 40px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
