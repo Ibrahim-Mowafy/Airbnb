@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
 import InfoCard from '../components/InfoCard';
+import MapContainer from '../components/MapContainer';
 
 const Search = ({ searchResults }) => {
   const router = useRouter();
@@ -12,12 +13,13 @@ const Search = ({ searchResults }) => {
   const formattedStartDate = format(new Date(startDate), 'dd-MMMM-yy');
   const formattedEndDate = format(new Date(endDate), 'dd-MMMM-yy');
   const range = `${formattedStartDate} - ${formattedEndDate}`;
+  // todo: adding head in page to adding description and title
   return (
     <div>
       <Header
         placeholder={`${location} | ${range} | ${numberOfGuests} guests`}
       />
-      <main className="flex pb-5">
+      <main className="flex pb-5 overflow-hidden">
         <section className=" flex-grow pt-14 px-6">
           <p className="text-xs">
             300+ Stays - {range} - for {numberOfGuests} number of guests
@@ -48,6 +50,9 @@ const Search = ({ searchResults }) => {
               )
             )}
           </div>
+        </section>
+        <section className="hidden xl:inline-flex  xl:min-w-[600px]">
+          <MapContainer searchResults={searchResults} />
         </section>
       </main>
       <Footer />
