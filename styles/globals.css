@@ -50,3 +50,44 @@ input {
 ::-webkit-scrollbar-track {
   background-color: transparent;
 }
+
+.room-item:hover
+  .swiper-button-next:not(.swiper-button-next.swiper-button-disabled),
+.room-item:hover
+  .swiper-button-prev:not(.swiper-button-prev.swiper-button-disabled) {
+  opacity: 1 !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  color: black;
+  font-size: 11px !important;
+  font-weight: bold;
+}
+
+.swiper-wrapper {
+  cursor: pointer;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  opacity: 0 !important;
+  width: 30px !important;
+  height: 30px !important;
+  transition: all 0.03s;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  z-index: 100000 !important;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  transform: scale(1.05);
+  background-color: rgb(255, 255, 255);
+}
+.swiper-button-next:active,
+.swiper-button-prev:active {
+  transform: scale(0.95);
+}
