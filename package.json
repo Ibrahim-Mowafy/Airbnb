@@ -11,14 +11,18 @@
   "dependencies": {
     "@badrap/bar-of-progress": "^0.2.1",
     "@heroicons/react": "^2.0.11",
+    "@stripe/stripe-js": "^1.38.1",
     "date-fns": "^2.29.3",
     "geolib": "^3.3.3",
     "mapbox-gl": "^2.10.0",
-    "next": "12.3.0",
+    "next": "^12.3.0",
     "react": "18.2.0",
     "react-date-range": "^1.4.0",
     "react-dom": "18.2.0",
+    "react-icons": "^4.4.0",
     "react-map-gl": "^7.0.19",
+    "stripe": "^10.11.0",
+    "swiper": "^8.4.2",
     "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
