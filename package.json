@@ -11,6 +11,8 @@
   "dependencies": {
     "@badrap/bar-of-progress": "^0.2.1",
     "@heroicons/react": "^2.0.11",
+    "@sanity/client": "^3.4.1",
+    "@sanity/image-url": "^1.0.1",
     "@stripe/stripe-js": "^1.38.1",
     "date-fns": "^2.29.3",
     "geolib": "^3.3.3",
