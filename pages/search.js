@@ -3,24 +3,24 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
-import InfoCard from '../components/InfoCard';
 import MapContainer from '../components/MapContainer';
+import { client } from '../lib/client';
+import RoomItem from '../components/RoomItem';
 
 const Search = ({ searchResults }) => {
   const router = useRouter();
   const { location, startDate, endDate, numberOfGuests } = router.query;
-  // !there is a issue here in date
   const formattedStartDate = format(new Date(startDate), 'dd-MMMM-yy');
   const formattedEndDate = format(new Date(endDate), 'dd-MMMM-yy');
   const range = `${formattedStartDate} - ${formattedEndDate}`;
   // todo: adding head in page to adding description and title
   return (
-    <div>
+    <>
       <Header
         placeholder={`${location} | ${range} | ${numberOfGuests} guests`}
       />
-      <main className="flex pb-5 overflow-hidden">
-        <section className=" flex-grow pt-14 px-6">
+      <main className="flex pb-5  relative w-full h-full">
+        <section className="flex-grow pt-14 px-6">
           <p className="text-xs">
             300+ Stays - {range} - for {numberOfGuests} number of guests
           </p>
@@ -34,37 +34,31 @@ const Search = ({ searchResults }) => {
             <p className="button">Rooms and Beds</p>
             <p className="button">More filter</p>
           </div>
-          <div className="flex flex-col">
-            {searchResults?.map(
-              ({ img, location, title, description, star, price, total }) => (
-                <InfoCard
-                  key={title}
-                  img={img}
-                  location={location}
-                  title={title}
-                  description={description}
-                  star={star}
-                  price={price}
-                  total={total}
-                />
-              )
-            )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 ">
+            {searchResults?.map((roomData) => (
+              <>
+                <RoomItem key={roomData._id} roomData={roomData} />
+              </>
+            ))}
           </div>
         </section>
-        <section className="hidden xl:inline-flex  xl:min-w-[600px]">
-          <MapContainer searchResults={searchResults} />
+        <section className="flex-grow min-w-[50%] relative ">
+          <div className="h-[100vh] sticky top-24">
+            <MapContainer searchResults={searchResults} />
+          </div>
         </section>
       </main>
       <Footer />
-    </div>
+    </>
   );
 };
 
 export default Search;
 
-export async function getServerSideProps() {
-  const response = await fetch('https://www.jsonkeeper.com/b/5NPS');
-  const searchResults = await response.json();
+export async function getServerSideProps({ query: { location } }) {
+  const searchResults = await client.fetch(
+    `*[_type == "room" && about match '${location}*' || address match '${location}*' || country match '${location}*' || title match '${location}*']`
+  );
 
   return {
     props: {
