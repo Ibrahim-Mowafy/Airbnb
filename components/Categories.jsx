@@ -58,7 +58,10 @@ const categories = [
 
 const Categories = () => {
   const router = useRouter();
-  const { category: categorySelected } = router.query;
+  let { category: categorySelected } = router.query;
+  if (!categorySelected) {
+    categorySelected = categories[0].name
+  }
 
   const categoriesContent = categories.map((category) => (
     <SwiperSlide key={category.name}>
