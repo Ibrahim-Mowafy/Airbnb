@@ -29,6 +29,21 @@ export default {
       title: 'Rate',
     },
     {
+      name: 'reviews',
+      type: 'number',
+      title: 'Reviews',
+    },
+    {
+      name: 'discount',
+      type: 'number',
+      title: 'Discount',
+    },
+    {
+      name: 'service_fee',
+      type: 'number',
+      title: 'Service Fee',
+    },
+    {
       title: 'Images of room',
       name: 'images',
       type: 'array',
