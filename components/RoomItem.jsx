@@ -2,7 +2,6 @@ import { HeartIcon, StarIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import PlaceHolderImage from '../assets/pexels-jonathan-borba-2983101.jpg';
 import { Navigation } from 'swiper';
 import { urlFor } from '../lib/client';
 import Link from 'next/link';

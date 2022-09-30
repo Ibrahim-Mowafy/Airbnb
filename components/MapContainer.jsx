@@ -44,7 +44,7 @@ const MapContainer = ({ searchResults }) => {
             ) : (
               <div className="bg-[#fd5b605e] rounded-full w-24 h-24 flex items-center justify-center">
                 <div className="bg-[#fd5b61] w-12 h-12 rounded-full flex items-center justify-center">
-                  <HomeIcon color="white" className="w-8" />
+                  <HomeIcon color="white" className="w-7" />
                 </div>
               </div>
             )}

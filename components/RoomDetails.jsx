@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ShareIcon, HeartIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { urlFor } from '../lib/client';
-import PlaceHolderImage from '../assets/pexels-jonathan-borba-2983101.jpg';
+// import PlaceHolderImage from '../assets/pexels-jonathan-borba-2983101.jpg';
 import { format } from 'date-fns';
 import differenceInDays from 'date-fns/differenceInDays';
 
@@ -115,26 +115,26 @@ const RoomDetails = ({
               </p>
             </div>
             <div className="relative h-20 w-20">
-              <Image
+              {/* <Image
                 src={PlaceHolderImage}
                 alt="Profile Picture"
                 layout="fill"
                 objectFit="cover"
                 className="rounded-full"
-              />
+              /> */}
             </div>
           </div>
 
           <div className="border-b py-5">
             <div className="flex items-center gap-2 pb-3">
               <div className="relative h-10 w-10">
-                <Image
+                {/* <Image
                   src={PlaceHolderImage}
                   alt="Profile Picture"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-full"
-                />
+                /> */}
               </div>
               <div>
                 <h4 className="font-semibold text-lg">Dedicated workspace</h4>
@@ -145,13 +145,13 @@ const RoomDetails = ({
             </div>
             <div className="flex items-center gap-2 pb-3">
               <div className="relative h-10 w-10">
-                <Image
+                {/* <Image
                   src={PlaceHolderImage}
                   alt="Profile Picture"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-full"
-                />
+                /> */}
               </div>
               <div>
                 <h4 className="font-semibold text-lg">Dedicated workspace</h4>
@@ -162,13 +162,13 @@ const RoomDetails = ({
             </div>
             <div className="flex items-center gap-2 pb-3">
               <div className="relative h-10 w-10">
-                <Image
+                {/* <Image
                   src={PlaceHolderImage}
                   alt="Profile Picture"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-full"
-                />
+                /> */}
               </div>
               <div>
                 <h4 className="font-semibold text-lg">Dedicated workspace</h4>
@@ -190,61 +190,61 @@ const RoomDetails = ({
             <div className="grid grid-cols-2">
               <div className="flex items-center gap-4 pb-2">
                 <div className="relative w-10 h-10">
-                  <Image
+                  {/* <Image
                     src={PlaceHolderImage}
                     alt="Profile Picture"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-full"
-                  />
+                  /> */}
                 </div>
                 <p className="text-lg">Valley view</p>
               </div>
               <div className="flex items-center gap-4 pb-2">
                 <div className="relative w-10 h-10">
-                  <Image
+                  {/* <Image
                     src={PlaceHolderImage}
                     alt="Profile Picture"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-full"
-                  />
+                  /> */}
                 </div>
                 <p className="text-lg">Valley view</p>
               </div>
               <div className="flex items-center gap-4 pb-2">
                 <div className="relative w-10 h-10">
-                  <Image
+                  {/* <Image
                     src={PlaceHolderImage}
                     alt="Profile Picture"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-full"
-                  />
+                  /> */}
                 </div>
                 <p className="text-lg">Valley view</p>
               </div>
               <div className="flex items-center gap-4 pb-2">
                 <div className="relative w-10 h-10">
-                  <Image
+                  {/* <Image
                     src={PlaceHolderImage}
                     alt="Profile Picture"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-full"
-                  />
+                  /> */}
                 </div>
                 <p className="text-lg">Valley view</p>
               </div>
               <div className="flex items-center gap-4 pb-2">
                 <div className="relative w-10 h-10">
-                  <Image
+                  {/* <Image
                     src={PlaceHolderImage}
                     alt="Profile Picture"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-full"
-                  />
+                  /> */}
                 </div>
                 <p className="text-lg">Valley view</p>
               </div>
@@ -350,13 +350,13 @@ const RoomDetails = ({
 
             <div className="flex items-center gap-2 pb-3">
               <div className="relative h-10 w-10">
-                <Image
+                {/* <Image
                   src={PlaceHolderImage}
                   alt="Profile Picture"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-full"
-                />
+                /> */}
               </div>
               <div>
                 <p>A private room with wifi that</p>
@@ -368,13 +368,13 @@ const RoomDetails = ({
 
             <div className="flex items-center gap-2 pb-3">
               <div className="relative h-10 w-10">
-                <Image
+                {/* <Image
                   src={PlaceHolderImage}
                   alt="Profile Picture"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-full"
-                />
+                /> */}
               </div>
               <div>
                 <p>A private room with wifi that</p>
@@ -386,13 +386,13 @@ const RoomDetails = ({
 
             <div className="flex items-center gap-2 pb-3">
               <div className="relative h-10 w-10">
-                <Image
+                {/* <Image
                   src={PlaceHolderImage}
                   alt="Profile Picture"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-full"
-                />
+                /> */}
               </div>
               <div>
                 <p>A private room with wifi that</p>
