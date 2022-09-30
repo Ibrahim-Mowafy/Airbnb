@@ -4,7 +4,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    console.log('🚀 ~ file: stripe.js ~ line 6 ~ handler ~ req.body', req.body);
+    const checkoutDetails = req.body.checkoutDetails;
     try {
       // Create Checkout Sessions from body params.
 
@@ -15,8 +15,15 @@ export default async function handler(req, res) {
         billing_address_collection: 'auto',
         line_items: [
           {
-            // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: 'price_1LlewLCESh4YsU5spsXcmFTr',
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: checkoutDetails.title,
+                images: [checkoutDetails.image],
+                description: checkoutDetails.address,
+              },
+              unit_amount: checkoutDetails.total * 100,
+            },
             quantity: 1,
           },
         ],
