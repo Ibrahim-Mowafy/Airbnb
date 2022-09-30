@@ -57,7 +57,7 @@ const Header = ({ placeholder }) => {
   };
 
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10">
+    <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-sm p-5 md:px-10">
       <div
         onClick={() => router.push('/')}
         className="relative flex items-center h-10 cursor-pointer my-auto"
@@ -97,6 +97,8 @@ const Header = ({ placeholder }) => {
             minDate={new Date()}
             rangeColors={['#fd5b61']}
             onChange={handleSelect}
+            months={2}
+            direction="horizontal"
           />
           <div className="flex items-center border-b mb-4">
             <h2 className="text-2xl flex-grow font-semibold">
