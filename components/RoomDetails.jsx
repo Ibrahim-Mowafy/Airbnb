@@ -1,23 +1,44 @@
 import React, { useState } from 'react';
 import { ShareIcon, HeartIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { urlFor } from '../lib/client';
 import PlaceHolderImage from '../assets/pexels-jonathan-borba-2983101.jpg';
 import { format } from 'date-fns';
+import differenceInDays from 'date-fns/differenceInDays';
 
 import { DateRange } from 'react-date-range';
 
 import MapContainer from './MapContainer';
 import getStripe from '../lib/getStripe';
 
-const RoomDetails = () => {
+const RoomDetails = ({
+  roomData: {
+    about,
+    address,
+    country,
+    images,
+    lat,
+    long,
+    price_per_night,
+    rate,
+    title,
+    discount,
+    service_fee,
+  },
+}) => {
   const [startDate, setStartDate] = useState(new Date());
-
   const [endDate, setEndDate] = useState(new Date());
 
   const formattedStartDate = format(new Date(startDate), 'dd/MM/yyyy');
   const formattedEndDate = format(new Date(endDate), 'dd/MM/yyyy');
-  const range = `${formattedStartDate} - ${formattedEndDate}`;
+  const range = differenceInDays(endDate, startDate);
 
+  const total = parseInt(
+    price_per_night * range -
+      discount * (price_per_night * range) +
+      service_fee,
+    10
+  );
   const handleReserve = async () => {
     const stript = await getStripe();
     const response = await fetch('/api/stripe', {
@@ -25,7 +46,14 @@ const RoomDetails = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ message: 'roomDetails' }),
+      body: JSON.stringify({
+        checkoutDetails: {
+          image: urlFor(images[0]).url(),
+          total: total,
+          title: title,
+          address: address,
+        },
+      }),
     });
 
     if (response.status === 500) return;
@@ -46,11 +74,9 @@ const RoomDetails = () => {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold pt-5">
-        Selene Cave Suite/Jacuzzi/Turkish Bath/Fireplace
-      </h1>
+      <h1 className="text-3xl font-semibold pt-5">{title}</h1>
       <div className="flex items-center justify-between pt-2">
-        <p>1 review . Alexandria</p>
+        <p>1 review . {country}</p>
         <div className="flex items-center space-x-2">
           <div className="flex cursor-pointer hover:bg-gray-100 p-1">
             <ShareIcon width={20} className="mr-2" />
@@ -62,49 +88,20 @@ const RoomDetails = () => {
           </div>
         </div>
       </div>
-      <section className="w-full h-[28rem]  mt-5 rounded-xl  overflow-hidden grid grid-cols-2 gap-2">
-        <div className="relative cursor-pointer hover:opacity-90 transition-opacity">
-          <Image
-            src={PlaceHolderImage}
-            alt="places"
-            layout="fill"
-            objectFit="cover"
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-2">
-          <div className="relative cursor-pointer hover:opacity-90 transition-opacity">
+      <section className="w-full h-[28rem]  mt-5 rounded-xl  overflow-hidden grid grid-cols-4 grid-rows-2 gap-2">
+        {images?.map((image) => (
+          <div
+            className="relative cursor-pointer hover:opacity-90 transition-opacity first:col-span-2 first:row-span-2"
+            key={image._key}
+          >
             <Image
-              src={PlaceHolderImage}
+              src={urlFor(image).url()}
               alt="places"
               layout="fill"
               objectFit="cover"
             />
           </div>
-          <div className="relative cursor-pointer hover:opacity-90 transition-opacity">
-            <Image
-              src={PlaceHolderImage}
-              alt="places"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-          <div className="relative cursor-pointer hover:opacity-90 transition-opacity">
-            <Image
-              src={PlaceHolderImage}
-              alt="places"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-          <div className="relative cursor-pointer hover:opacity-90 transition-opacity">
-            <Image
-              src={PlaceHolderImage}
-              alt="places"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-        </div>
+        ))}
       </section>
       <section className="w-full pt-8 flex">
         <div className="w-[60%]">
@@ -184,16 +181,7 @@ const RoomDetails = () => {
 
           <div className="border-b py-5">
             <h3 className="text-2xl pb-3 font-semibold">About this space</h3>
-            <p>
-              Located in the Urgüp district of the Cappadocia region, you will
-              experience the spirit of the region in the original cave rooms
-              built by carving natural rocks. With its private heated pool, you
-              will feel like you are in a family atmosphere with the service you
-              get from beautiful staff at our facility, which is a blend of
-              authentic and luxurious accommodation in the winter. Our facility
-              is within walking distance to the center of Urgüp and you will be
-              able to easily access all your needs and restaurants.
-            </p>
+            <p>{about}</p>
           </div>
           <div className="border-b py-5">
             <h3 className="text-2xl pb-3 font-semibold">
@@ -284,7 +272,10 @@ const RoomDetails = () => {
           <div className="w-full sticky top-32 pl-8 ">
             <div className="w-full border border-gray-200 rounded-xl shadow-xl p-6">
               <p>
-                <span className="font-semibold text-2xl">$278 </span>night
+                <span className="font-semibold text-2xl">
+                  ${price_per_night}
+                </span>
+                night
               </p>
               <div className="grid grid-cols-2 py-3">
                 <div className="border rounded-tl-xl text-lg p-3">
@@ -298,34 +289,48 @@ const RoomDetails = () => {
                 </div>
               </div>
               <div>
-                <button
-                  className="button w-full py-3 rounded-xl bg-[#fd5b61] text-white active:bg-[#ff7075] font-semibold text-lg"
-                  onClick={handleReserve}
-                >
-                  Reserve
-                </button>
+                {range > 0 ? (
+                  <button
+                    className="button w-full py-3 rounded-xl bg-[#fd5b61] text-white active:bg-[#ff7075] font-semibold text-lg"
+                    onClick={handleReserve}
+                  >
+                    Reserve
+                  </button>
+                ) : (
+                  <button className="button w-full py-3 rounded-xl bg-[#fd5b61] text-white active:bg-[#ff7075] font-semibold text-lg">
+                    Check availability
+                  </button>
+                )}
               </div>
-              <p className="text-center pt-3 text-sm">
-                You wont be charged yet
-              </p>
-              <div className="border-b pb-3">
-                <div className="flex justify-between py-2">
-                  <p className="text-md">$292 x 8 nights</p>
-                  <p className="text-md">$2,338</p>
-                </div>
-                <div className="flex justify-between py-2">
-                  <p className="text-md">Weekly discount</p>
-                  <p className="text-md text-green-600 font-semibold">-$212</p>
-                </div>
-                <div className="flex justify-between py-2">
-                  <p className="text-md">Service fee</p>
-                  <p className="text-md">$314</p>
-                </div>
-              </div>
-              <div className="flex justify-between pt-4">
-                <p className="font-semibold text-lg">Total before taxes</p>
-                <p className="font-semibold text-lg">$2,535</p>
-              </div>
+              {range > 0 && (
+                <>
+                  <p className="text-center pt-3 text-sm">
+                    You wont be charged yet
+                  </p>
+                  <div className="border-b pb-3">
+                    <div className="flex justify-between py-2">
+                      <p className="text-md">
+                        ${price_per_night} x {range} nights
+                      </p>
+                      <p className="text-md">${price_per_night * range}</p>
+                    </div>
+                    <div className="flex justify-between py-2">
+                      <p className="text-md">Discount</p>
+                      <p className="text-md text-green-600 font-semibold">
+                        -${parseInt(discount * (price_per_night * range), 10)}
+                      </p>
+                    </div>
+                    <div className="flex justify-between py-2">
+                      <p className="text-md">Service fee</p>
+                      <p className="text-md">${service_fee}</p>
+                    </div>
+                  </div>
+                  <div className="flex justify-between pt-4">
+                    <p className="font-semibold text-lg">Total before taxes</p>
+                    <p className="font-semibold text-lg">${total}</p>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -333,7 +338,7 @@ const RoomDetails = () => {
       <div className="border-b border-t py-5 w-full">
         <h3 className="text-2xl pb-3 font-semibold">Where you will be</h3>
         <div className="w-full h-[28rem]">
-          <MapContainer searchResults={[{ lat: 30, long: 30 }]} />
+          <MapContainer searchResults={[{ lat: lat, long: long }]} />
         </div>
       </div>
       <div className='py-5 w-full border-b"'>

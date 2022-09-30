@@ -3,8 +3,9 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
 import RoomDetails from '../../components/RoomDetails';
+import { client } from '../../lib/client';
 
-const details = () => {
+const details = ({ roomDetails }) => {
   return (
     <>
       <Head>
@@ -12,7 +13,7 @@ const details = () => {
       </Head>
       <Header />
       <main className="max-w-7xl mx-auto px-8 sm:px-16">
-        <RoomDetails />
+        <RoomDetails roomData={roomDetails} />
       </main>
       <Footer />
     </>
@@ -20,3 +21,14 @@ const details = () => {
 };
 
 export default details;
+
+export async function getServerSideProps({ query }) {
+  const roomId = query.roomId;
+  const roomDetailsResponse = await client.fetch(
+    `*[_type == "room" && _id == '${roomId}'][0]`
+  );
+
+  return {
+    props: { roomDetails: roomDetailsResponse },
+  };
+}
