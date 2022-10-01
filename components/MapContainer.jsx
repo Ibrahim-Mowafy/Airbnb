@@ -4,8 +4,9 @@ import { getCenter } from 'geolib';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { HomeIcon } from '@heroicons/react/24/solid';
 
-const MapContainer = ({ searchResults }) => {
+const MapContainer = ({ searchResults, onHoverItems }) => {
   const [selectedLocation, setSelectedLocation] = useState({});
+  const activeClassMarker = 'scale-110 bg-black text-white';
 
   const coordinates = searchResults?.map((result) => ({
     longitude: result.long,
@@ -34,7 +35,9 @@ const MapContainer = ({ searchResults }) => {
           >
             {result.price_per_night ? (
               <p
-                className="cursor-pointer text-sm bg-gray-100 font-semibold py-0.5 px-2 rounded-xl hover:scale-110 transition transform ease-out active:bg-black active:text-white "
+                className={`cursor-pointer text-sm bg-gray-100 font-semibold py-0.5 px-2 rounded-xl hover:scale-110 transition transform duration-150 ease-out active:bg-black active:text-white ${
+                  onHoverItems ? activeClassMarker : ''
+                }`}
                 onClick={() => {
                   setSelectedLocation(result);
                 }}
@@ -42,7 +45,7 @@ const MapContainer = ({ searchResults }) => {
                 ${result.price_per_night}
               </p>
             ) : (
-              <div className="bg-[#fd5b605e] rounded-full w-24 h-24 flex items-center justify-center">
+              <div className="bg-[#fd5b605e] rounded-full w-28 h-28 flex items-center justify-center">
                 <div className="bg-[#fd5b61] w-12 h-12 rounded-full flex items-center justify-center">
                   <HomeIcon color="white" className="w-7" />
                 </div>

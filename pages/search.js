@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useRouter } from 'next/router';
@@ -9,6 +9,8 @@ import RoomItem from '../components/RoomItem';
 
 const Search = ({ searchResults }) => {
   const router = useRouter();
+  const [isHoverRoomItem, setIsHoverRoomItem] = useState(false);
+
   const { location, startDate, endDate, numberOfGuests } = router.query;
   const formattedStartDate = format(new Date(startDate), 'dd-MMMM-yy');
   const formattedEndDate = format(new Date(endDate), 'dd-MMMM-yy');
@@ -37,14 +39,26 @@ const Search = ({ searchResults }) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 ">
             {searchResults?.map((roomData) => (
               <>
-                <RoomItem key={roomData._id} roomData={roomData} />
+                <div
+                  onMouseEnter={() => {
+                    setIsHoverRoomItem(true);
+                  }}
+                  onMouseLeave={() => {
+                    setIsHoverRoomItem(false);
+                  }}
+                >
+                  <RoomItem key={roomData._id} roomData={roomData} />
+                </div>
               </>
             ))}
           </div>
         </section>
         <section className="flex-grow min-w-[50%] relative ">
           <div className="h-[100vh] sticky top-24">
-            <MapContainer searchResults={searchResults} />
+            <MapContainer
+              searchResults={searchResults}
+              onHoverItems={isHoverRoomItem}
+            />
           </div>
         </section>
       </main>
