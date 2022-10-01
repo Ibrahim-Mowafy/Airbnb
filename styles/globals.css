@@ -91,3 +91,11 @@ input {
 .swiper-button-prev:active {
   transform: scale(0.95);
 }
+
+.swiper-pagination-bullet {
+  background-color: #fff !important;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: #fff;
+}

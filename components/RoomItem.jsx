@@ -1,19 +1,32 @@
 import { HeartIcon, StarIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper';
+import { Navigation, Pagination } from 'swiper';
 import { urlFor } from '../lib/client';
 import Link from 'next/link';
+// import { WishlistsContext } from '../context/wishlist-context';
 
 const RoomItem = ({
   roomData: { _id, rate, address, title, price_per_night, images },
 }) => {
+  // const toggleFav = useContext(WishlistsContext).toggleFavorite;
+
+  // const toggleFavHandler = (e) => {
+  //   toggleFav({ _id, rate, address, title, price_per_night, images });
+  //   e.stopPropagation();
+  // };
+
   return (
     <Link href={`/rooms/${_id}`}>
-      <section className="room-item p-2 cursor-pointer">
+      <section className="room-item p-2 cursor-pointer relative">
         <div className="rounded-xl overflow-hidden relative">
-          <Swiper navigation={true} modules={[Navigation]} slidesPerView={1}>
+          <Swiper
+            navigation={true}
+            modules={[Navigation, Pagination]}
+            pagination={{ clickable: true }}
+            slidesPerView={1}
+          >
             {images?.map((image) => (
               <SwiperSlide key={image._key}>
                 <Image
@@ -27,7 +40,10 @@ const RoomItem = ({
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className="absolute top-5 right-5 z-10 cursor-pointer active:scale-105 transform transition">
+          <div
+            className="absolute top-5 right-5 z-10 cursor-pointer active:scale-105 transform transition"
+            // onClick={toggleFavHandler}
+          >
             <HeartIcon
               width={25}
               height={25}
