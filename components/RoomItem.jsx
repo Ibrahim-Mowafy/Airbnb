@@ -1,21 +1,36 @@
 import { HeartIcon, StarIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper';
 import { urlFor } from '../lib/client';
 import Link from 'next/link';
-// import { WishlistsContext } from '../context/wishlist-context';
+import { WishlistsContext } from '../context/wishlist-context';
+import toast from 'react-hot-toast';
 
-const RoomItem = ({
-  roomData: { _id, rate, address, title, price_per_night, images },
-}) => {
-  // const toggleFav = useContext(WishlistsContext).toggleFavorite;
+const RoomItem = ({ roomData }) => {
+  const { _id, rate, address, title, price_per_night, images } = roomData;
+  const { addRoomToWishlist, removeRoomFromWishlist, wishlist } =
+    useContext(WishlistsContext);
+  const isFav = !!wishlist.find((curr) => curr._id === _id);
+  const [isFavorite, setIsFavorite] = useState(isFav);
 
-  // const toggleFavHandler = (e) => {
-  //   toggleFav({ _id, rate, address, title, price_per_night, images });
-  //   e.stopPropagation();
-  // };
+  const addToWishlistHandler = (e) => {
+    e.stopPropagation();
+    addRoomToWishlist(roomData);
+    setIsFavorite(true);
+    toast(`${title} saved to your wishlist`, {
+      icon: '❤️',
+    });
+  };
+  const removeFromWishlistHandler = (e) => {
+    e.stopPropagation();
+    removeRoomFromWishlist(_id);
+    setIsFavorite(false);
+    toast(`${title} removed form your wishlist`, {
+      icon: '❤️',
+    });
+  };
 
   return (
     <Link href={`/rooms/${_id}`}>
@@ -40,16 +55,30 @@ const RoomItem = ({
               </SwiperSlide>
             ))}
           </Swiper>
-          <div
-            className="absolute top-5 right-5 z-10 cursor-pointer active:scale-105 transform transition"
-            // onClick={toggleFavHandler}
-          >
-            <HeartIcon
-              width={25}
-              height={25}
-              className="text-gray-600 stroke-white"
-            />
-          </div>
+          {!isFavorite && (
+            <div
+              className="absolute top-5 right-5 z-10 cursor-pointer active:scale-105 transform transition"
+              onClick={addToWishlistHandler}
+            >
+              <HeartIcon
+                width={25}
+                height={25}
+                className="text-gray-600 stroke-white"
+              />
+            </div>
+          )}
+          {isFavorite && (
+            <div
+              className="absolute top-5 right-5 z-10 cursor-pointer active:scale-105 transform transition"
+              onClick={removeFromWishlistHandler}
+            >
+              <HeartIcon
+                width={25}
+                height={25}
+                className="text-red-500 stroke-white"
+              />
+            </div>
+          )}
         </div>
         <div className="flex justify-between pt-2">
           <h4 className="font-semibold">{title}</h4>
