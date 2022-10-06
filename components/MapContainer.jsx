@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 import { getCenter } from 'geolib';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { HomeIcon } from '@heroicons/react/24/solid';
+import { HomeIcon, HeartIcon } from '@heroicons/react/24/solid';
 
-const MapContainer = ({ searchResults, onHoverItems }) => {
+const MapContainer = ({ searchResults, onHoverItems, addHeart }) => {
   const [selectedLocation, setSelectedLocation] = useState({});
   const activeClassMarker = 'scale-110 bg-black text-white';
 
@@ -20,7 +20,7 @@ const MapContainer = ({ searchResults, onHoverItems }) => {
       initialViewState={{
         longitude: center.longitude,
         latitude: center.latitude,
-        zoom: 8,
+        zoom: 4,
       }}
       style={{ width: '100%', height: '100%' }}
       mapStyle="mapbox://styles/ahmed2mohamed/cl8bjaxqj001v14mtj812crm8"
@@ -35,14 +35,19 @@ const MapContainer = ({ searchResults, onHoverItems }) => {
           >
             {result.price_per_night ? (
               <p
-                className={`cursor-pointer text-sm bg-gray-100 font-semibold py-0.5 px-2 rounded-xl hover:scale-110 transition transform duration-150 ease-out active:bg-black active:text-white ${
-                  onHoverItems ? activeClassMarker : ''
+                className={`cursor-pointer text-sm bg-gray-100 flex items-center font-semibold py-0.5 px-2 rounded-xl hover:scale-110 transition transform duration-150 ease-out active:bg-black active:text-white ${
+                  onHoverItems === result._id ? activeClassMarker : ''
                 }`}
                 onClick={() => {
                   setSelectedLocation(result);
                 }}
               >
                 ${result.price_per_night}
+                {addHeart && (
+                  <span className='ml-1'>
+                    <HeartIcon width={15} className="text-red-600" />
+                  </span>
+                )}
               </p>
             ) : (
               <div className="bg-[#fd5b605e] rounded-full w-28 h-28 flex items-center justify-center">
@@ -50,6 +55,13 @@ const MapContainer = ({ searchResults, onHoverItems }) => {
                   <HomeIcon color="white" className="w-7" />
                 </div>
               </div>
+
+              /* <div className='flex'>
+                <div className="animate-ping relative bg-[#fd5b605e] rounded-full w-28 h-28 inline-flex items-center justify-center"></div>
+                <div className="absolute top-[50%] right-[50%] translate-x-[50%] translate-y-[-50%] bg-[#fd5b61] w-12 h-12 rounded-full inline-flex items-center justify-center">
+                  <HomeIcon color="white" className="w-7" />
+                </div>
+              </div> */
             )}
           </Marker>
           {/* {selectedLocation.long === result.long ? (

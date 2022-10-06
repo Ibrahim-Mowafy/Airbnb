@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ShareIcon, HeartIcon } from '@heroicons/react/24/outline';
+import React, { useContext, useState } from 'react';
+import { ShareIcon, HeartIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { urlFor } from '../lib/client';
 // import PlaceHolderImage from '../assets/pexels-jonathan-borba-2983101.jpg';
@@ -10,9 +10,12 @@ import { DateRange } from 'react-date-range';
 
 import MapContainer from './MapContainer';
 import getStripe from '../lib/getStripe';
+import { WishlistsContext } from '../context/wishlist-context';
+import toast from 'react-hot-toast';
 
-const RoomDetails = ({
-  roomData: {
+const RoomDetails = ({ roomData }) => {
+  const {
+    _id,
     about,
     address,
     country,
@@ -24,14 +27,35 @@ const RoomDetails = ({
     title,
     discount,
     service_fee,
-  },
-}) => {
+  } = roomData;
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
   const formattedStartDate = format(new Date(startDate), 'dd/MM/yyyy');
   const formattedEndDate = format(new Date(endDate), 'dd/MM/yyyy');
   const range = differenceInDays(endDate, startDate);
+
+  const { addRoomToWishlist, removeRoomFromWishlist, wishlist } =
+    useContext(WishlistsContext);
+  const isFav = !!wishlist.find((curr) => curr._id === _id);
+  const [isFavorite, setIsFavorite] = useState(isFav);
+
+  const addToWishlistHandler = (e) => {
+    e.stopPropagation();
+    addRoomToWishlist(roomData);
+    setIsFavorite(true);
+    toast(`${title} saved to your wishlist`, {
+      icon: '❤️',
+    });
+  };
+  const removeFromWishlistHandler = (e) => {
+    e.stopPropagation();
+    removeRoomFromWishlist(_id);
+    setIsFavorite(false);
+    toast(`${title} removed form your wishlist`, {
+      icon: '❤️',
+    });
+  };
 
   const total = parseInt(
     price_per_night * range -
@@ -82,10 +106,27 @@ const RoomDetails = ({
             <ShareIcon width={20} className="mr-2" />
             Share
           </div>
-          <div className="flex cursor-pointer hover:bg-gray-100 p-1">
-            <HeartIcon width={20} className="mr-2" />
-            Save
-          </div>
+          {!isFavorite && (
+            <div
+              className="flex cursor-pointer hover:bg-gray-100 p-1"
+              onClick={addToWishlistHandler}
+            >
+              <HeartIcon
+                width={20}
+                className="mr-2 text-transparent stroke-black "
+              />
+              Save
+            </div>
+          )}
+          {isFavorite && (
+            <div
+              className="flex cursor-pointer hover:bg-gray-100 p-1"
+              onClick={removeFromWishlistHandler}
+            >
+              <HeartIcon width={20} className="mr-2 text-red-500 " />
+              Save
+            </div>
+          )}
         </div>
       </div>
       <section className="w-full h-[28rem]  mt-5 rounded-xl  overflow-hidden grid grid-cols-4 grid-rows-2 gap-2">
