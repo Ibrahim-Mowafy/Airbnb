@@ -41,7 +41,7 @@ const Search = ({ searchResults }) => {
               <>
                 <div
                   onMouseEnter={() => {
-                    setIsHoverRoomItem(true);
+                    setIsHoverRoomItem(roomData._id);
                   }}
                   onMouseLeave={() => {
                     setIsHoverRoomItem(false);

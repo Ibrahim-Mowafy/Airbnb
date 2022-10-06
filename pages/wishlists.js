@@ -24,7 +24,7 @@ const wishlists = () => {
               <>
                 <div
                   onMouseEnter={() => {
-                    setIsHoverRoomItem(true);
+                    setIsHoverRoomItem(roomData._id);
                   }}
                   onMouseLeave={() => {
                     setIsHoverRoomItem(false);
@@ -41,6 +41,7 @@ const wishlists = () => {
             <MapContainer
               searchResults={wishlists}
               onHoverItems={isHoverRoomItem}
+              addHeart={true}
             />
           </div>
         </section>
