@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import RoomItem from '../components/RoomItem';
 import Categories from '../components/Categories';
 import { client } from '../lib/client';
+import { Toaster } from 'react-hot-toast';
 
 export default function Home({ exploreRooms }) {
   return (
@@ -24,10 +25,15 @@ export default function Home({ exploreRooms }) {
       <Header />
       {/* Banner */}
       {/* <Banner /> */}
+      {/* Categories */}
       <Categories />
+      
+      {/* Toaster */}
+      <div>
+        <Toaster position="bottom-left" />
+      </div>
 
       <main className="mx-auto px-8 sm:px-16 pt-5 grid xl:grid-cols-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
-        {/* Categories */}
         {exploreRooms?.map((roomData) => (
           <RoomItem key={roomData._id} roomData={roomData} />
         ))}
