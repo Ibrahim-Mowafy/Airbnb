@@ -2,12 +2,10 @@ import '../styles/globals.css';
 import ProgressBar from '@badrap/bar-of-progress';
 import Router from 'next/router';
 // import 'swiper/css';
-import "swiper/css/bundle";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
-
-
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import WishlistProvider from '../context/wishlist-context';
 
 const progress = new ProgressBar({
   // The size (height) of the progress bar.
@@ -31,7 +29,11 @@ Router.events.on('routeChangeComplete', progress.finish);
 Router.events.on('routeChangeError', progress.finish);
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <WishlistProvider>
+      <Component {...pageProps} />
+    </WishlistProvider>
+  );
 }
 
 export default MyApp;
