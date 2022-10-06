@@ -47,6 +47,7 @@ const Header = ({ placeholder }) => {
   };
 
   const onSearch = () => {
+    if (!searchInput) return;
     router.push({
       pathname: '/search',
       query: {
@@ -81,7 +82,10 @@ const Header = ({ placeholder }) => {
           value={searchInput}
           onChange={searchInputChangeHandler}
         />
-        <MagnifyingGlassIcon className="hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer" />
+        <MagnifyingGlassIcon
+          className="hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer"
+          onClick={onSearch}
+        />
       </div>
       <div className="flex items-center justify-end space-x-4 text-gray-600">
         <p className="hidden md:inline-block cursor-pointer">Become a Host</p>
