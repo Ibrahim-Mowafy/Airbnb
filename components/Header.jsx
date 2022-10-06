@@ -11,12 +11,14 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Header = ({ placeholder }) => {
   const [searchInput, setSearchInput] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [numberOfGuests, setNumberOfGuests] = useState(1);
+  const [showDropDownMenu, setShowDropDownMenu] = useState(false);
   const router = useRouter();
 
   const handleSelect = (ranges) => {
@@ -84,9 +86,56 @@ const Header = ({ placeholder }) => {
       <div className="flex items-center justify-end space-x-4 text-gray-600">
         <p className="hidden md:inline-block cursor-pointer">Become a Host</p>
         <GlobeAltIcon className="h-6 cursor-pointer" />
-        <div className="flex items-center space-x-2 border-2 p-2 rounded-full cursor-pointer">
+        <div
+          className="relative flex items-center space-x-2 border-2 p-1  rounded-full cursor-pointer hover:shadow-md transition-all"
+          onClick={() => {
+            setShowDropDownMenu((prevState) => !prevState);
+          }}
+        >
           <Bars3Icon className="h-6" />
-          <UserCircleIcon className="h-6" />
+          <UserCircleIcon className="h-8" />
+          {showDropDownMenu && (
+            <>
+              <div className="absolute right-0 top-14 rounded-lg text-lg  bg-white w-64 z-50 shadow-2xl py-2 border cursor-pointer">
+                <ul className="flex flex-col border-b font-semibold">
+                  <li className="p-3 px-5 hover:bg-gray-100 transition">
+                    Messages
+                  </li>
+                  <li className="p-3 px-5 hover:bg-gray-100 transition">
+                    Notification
+                  </li>
+                  <li className="p-3 px-5 hover:bg-gray-100 transition">
+                    Trips
+                  </li>
+                  <Link href={'/wishlists'}>
+                    <li className="p-3 px-5 hover:bg-gray-100 transition">
+                      Wishlists
+                    </li>
+                  </Link>
+                </ul>
+                <ul className="flex flex-col border-b">
+                  <li className="p-3 px-5 hover:bg-gray-100 transition">
+                    Host an experience
+                  </li>
+                  <li className="p-3 px-5 hover:bg-gray-100 transition">
+                    Host your home
+                  </li>
+                  <li className="p-3 px-5 hover:bg-gray-100 transition">
+                    Account
+                  </li>
+                </ul>
+                <ul className="flex flex-col">
+                  <li className="p-3 px-5 hover:bg-gray-100 transition">
+                    Help
+                  </li>
+                  <li className="p-3 px-5 hover:bg-gray-100 transition">
+                    Logout
+                  </li>
+                </ul>
+              </div>
+              <div className="top-0 left-0 fixed h-[100vh] w-[100vw] z-40 cursor-auto bg-transparent"></div>
+            </>
+          )}
         </div>
       </div>
 
