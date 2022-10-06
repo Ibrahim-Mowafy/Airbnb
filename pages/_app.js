@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import WishlistProvider from '../context/wishlist-context';
+import { Toaster } from 'react-hot-toast';
 
 const progress = new ProgressBar({
   // The size (height) of the progress bar.
@@ -31,6 +32,10 @@ Router.events.on('routeChangeError', progress.finish);
 function MyApp({ Component, pageProps }) {
   return (
     <WishlistProvider>
+      {/* Toaster */}
+      <>
+        <Toaster position="bottom-left" />
+      </>
       <Component {...pageProps} />
     </WishlistProvider>
   );
