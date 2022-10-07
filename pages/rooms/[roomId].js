@@ -9,7 +9,7 @@ const details = ({ roomDetails }) => {
   return (
     <>
       <Head>
-        {/* // todo: adding head in page to adding description and title */}
+        <title>{roomDetails.title} - Airbnb</title>
       </Head>
       <Header />
       <main className="max-w-7xl mx-auto px-8 sm:px-16">

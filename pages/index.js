@@ -19,6 +19,41 @@ export default function Home({ exploreRooms }) {
           content="width=device-width, initial-scale=1, viewport-fit=cover"
           name="viewport"
         />
+        <meta name="theme-color" content="#ffffff"></meta>
+
+        {/* <!-- Open Graph / Facebook --> */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://airbnp.vercel.app/" />
+        <meta
+          property="og:title"
+          content="Vacation Homes & Condo Rentals - Airbnb"
+        />
+        <meta
+          property="og:description"
+          content="Find vacation rentals, cabins, beach houses, unique homes, and experiences worldwide - all made possible by hosts on Airbnb."
+        />
+        <meta
+          property="og:image"
+          content="https://airbnp.vercel.app/card_Image.jpg"
+        />
+
+        {/* <!-- Twitter --> */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://airbnp.vercel.app/" />
+        <meta
+          property="twitter:title"
+          content="Vacation Homes & Condo Rentals - Airbnb"
+        />
+        <meta
+          property="twitter:description"
+          content="Find vacation rentals, cabins, beach houses, unique homes, and experiences worldwide - all made possible by hosts on Airbnb."
+        />
+        <meta
+          property="twitter:image"
+          content="https://airbnp.vercel.app/card_Image.jpg"
+        />
+        <meta name="author" content="Ibrahim Mowafy" />
+
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Header */}

@@ -1,10 +1,9 @@
+import Head from 'next/head';
 import React, { useContext, useState } from 'react';
 import Header from '../components/Header';
 import MapContainer from '../components/MapContainer';
 import RoomItem from '../components/RoomItem';
 import { WishlistsContext } from '../context/wishlist-context';
-
-// todo: adding head in page to adding description and title
 
 const wishlists = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -15,12 +14,15 @@ const wishlists = () => {
   if (wishlists.length === 0) {
     return (
       <>
+        <Head>
+          <title>Your list . Wishlist - Airbnb</title>
+        </Head>
         <Header />
         <main className="flex flex-col p-5 md:px-10 relative w-full h-full">
           <h1 className="text-3xl font-bold mt-2 mb-6">Wishlist</h1>
 
-          <h3 className='text-2xl font-semibold'>Create your first wishlist</h3>
-          <p className='text-gray-500 mt-5 max-w-lg'>
+          <h3 className="text-2xl font-semibold">Create your first wishlist</h3>
+          <p className="text-gray-500 mt-5 max-w-lg">
             As you search, tap the heart icon to save your favorite places to
             stay or things to do to a wishlist.
           </p>

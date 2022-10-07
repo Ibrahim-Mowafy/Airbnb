@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import MapContainer from '../components/MapContainer';
 import { client } from '../lib/client';
 import RoomItem from '../components/RoomItem';
+import Head from 'next/head';
 
 const Search = ({ searchResults }) => {
   const router = useRouter();
@@ -15,11 +16,16 @@ const Search = ({ searchResults }) => {
   const formattedStartDate = format(new Date(startDate), 'dd-MMMM-yy');
   const formattedEndDate = format(new Date(endDate), 'dd-MMMM-yy');
   const range = `${formattedStartDate} - ${formattedEndDate}`;
-  // todo: adding head in page to adding description and title
 
   if (searchResults.length === 0) {
     return (
       <>
+        <Head>
+          <title>
+            Airbnb | {location} - Vacation Rentals, Cabins, Beach Houses, Unique
+            Homes &amp; Experiences
+          </title>
+        </Head>
         <Header />
         <main className="flex flex-col p-5 md:px-10 relative w-full h-full">
           <h1 className="text-3xl font-bold mt-2 mb-6">Search</h1>
