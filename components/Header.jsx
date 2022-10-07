@@ -71,6 +71,7 @@ const Header = ({ placeholder }) => {
           layout="fill"
           objectFit="contain"
           objectPosition="left"
+          priority
         />
       </div>
 
