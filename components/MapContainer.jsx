@@ -8,6 +8,8 @@ const MapContainer = ({ searchResults, onHoverItems, addHeart }) => {
   const [selectedLocation, setSelectedLocation] = useState({});
   const activeClassMarker = 'scale-110 bg-black text-white';
 
+  if (searchResults.length === 0) return;
+
   const coordinates = searchResults?.map((result) => ({
     longitude: result.long,
     latitude: result.lat,
@@ -44,7 +46,7 @@ const MapContainer = ({ searchResults, onHoverItems, addHeart }) => {
               >
                 ${result.price_per_night}
                 {addHeart && (
-                  <span className='ml-1'>
+                  <span className="ml-1">
                     <HeartIcon width={15} className="text-red-600" />
                   </span>
                 )}

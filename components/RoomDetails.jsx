@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import { ShareIcon, HeartIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { urlFor } from '../lib/client';
-// import PlaceHolderImage from '../assets/pexels-jonathan-borba-2983101.jpg';
 import { format } from 'date-fns';
 import differenceInDays from 'date-fns/differenceInDays';
 
@@ -12,6 +11,7 @@ import MapContainer from './MapContainer';
 import getStripe from '../lib/getStripe';
 import { WishlistsContext } from '../context/wishlist-context';
 import toast from 'react-hot-toast';
+import Spinner from './spinner/Spinner';
 
 const RoomDetails = ({ roomData }) => {
   const {
@@ -26,10 +26,13 @@ const RoomDetails = ({ roomData }) => {
     rate,
     title,
     discount,
+    reviews,
     service_fee,
   } = roomData;
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [isCheckout, setIsCheckout] = useState(false);
+  const checkoutDateRef = useRef();
 
   const formattedStartDate = format(new Date(startDate), 'dd/MM/yyyy');
   const formattedEndDate = format(new Date(endDate), 'dd/MM/yyyy');
@@ -64,6 +67,7 @@ const RoomDetails = ({ roomData }) => {
     10
   );
   const handleReserve = async () => {
+    setIsCheckout(true);
     const stript = await getStripe();
     const response = await fetch('/api/stripe', {
       method: 'POST',
@@ -89,6 +93,9 @@ const RoomDetails = ({ roomData }) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
   };
+  const onScrollToCheckout = () => {
+    checkoutDateRef.current.scrollIntoView();
+  };
 
   const selectionRange = {
     startDate: startDate,
@@ -100,7 +107,9 @@ const RoomDetails = ({ roomData }) => {
     <>
       <h1 className="text-3xl font-semibold pt-5">{title}</h1>
       <div className="flex items-center justify-between pt-2">
-        <p>1 review . {country}</p>
+        <p>
+          {reviews} review . {country}
+        </p>
         <div className="flex items-center space-x-2">
           <div className="flex cursor-pointer hover:bg-gray-100 p-1">
             <ShareIcon width={20} className="mr-2" />
@@ -158,26 +167,26 @@ const RoomDetails = ({ roomData }) => {
               </p>
             </div>
             <div className="relative h-20 w-20">
-              {/* <Image
-                src={PlaceHolderImage}
+              <Image
+                src="/placeholderImage.jpg"
                 alt="Profile Picture"
                 layout="fill"
                 objectFit="cover"
                 className="rounded-full"
-              /> */}
+              />
             </div>
           </div>
 
           <div className="border-b py-5">
             <div className="flex items-center gap-2 pb-3">
               <div className="relative h-10 w-10">
-                {/* <Image
-                  src={PlaceHolderImage}
+                <Image
+                  src="/placeholderImage.jpg"
                   alt="Profile Picture"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-full"
-                /> */}
+                />
               </div>
               <div>
                 <h4 className="font-semibold text-lg">Dedicated workspace</h4>
@@ -188,13 +197,13 @@ const RoomDetails = ({ roomData }) => {
             </div>
             <div className="flex items-center gap-2 pb-3">
               <div className="relative h-10 w-10">
-                {/* <Image
-                  src={PlaceHolderImage}
+                <Image
+                  src="/placeholderImage.jpg"
                   alt="Profile Picture"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-full"
-                /> */}
+                />
               </div>
               <div>
                 <h4 className="font-semibold text-lg">Dedicated workspace</h4>
@@ -205,13 +214,13 @@ const RoomDetails = ({ roomData }) => {
             </div>
             <div className="flex items-center gap-2 pb-3">
               <div className="relative h-10 w-10">
-                {/* <Image
-                  src={PlaceHolderImage}
+                <Image
+                  src="/placeholderImage.jpg"
                   alt="Profile Picture"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-full"
-                /> */}
+                />
               </div>
               <div>
                 <h4 className="font-semibold text-lg">Dedicated workspace</h4>
@@ -233,67 +242,67 @@ const RoomDetails = ({ roomData }) => {
             <div className="grid grid-cols-2">
               <div className="flex items-center gap-4 pb-2">
                 <div className="relative w-10 h-10">
-                  {/* <Image
-                    src={PlaceHolderImage}
+                  <Image
+                    src="/placeholderImage.jpg"
                     alt="Profile Picture"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-full"
-                  /> */}
+                  />
                 </div>
                 <p className="text-lg">Valley view</p>
               </div>
               <div className="flex items-center gap-4 pb-2">
                 <div className="relative w-10 h-10">
-                  {/* <Image
-                    src={PlaceHolderImage}
+                  <Image
+                    src="/placeholderImage.jpg"
                     alt="Profile Picture"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-full"
-                  /> */}
+                  />
                 </div>
                 <p className="text-lg">Valley view</p>
               </div>
               <div className="flex items-center gap-4 pb-2">
                 <div className="relative w-10 h-10">
-                  {/* <Image
-                    src={PlaceHolderImage}
+                  <Image
+                    src="/placeholderImage.jpg"
                     alt="Profile Picture"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-full"
-                  /> */}
+                  />
                 </div>
                 <p className="text-lg">Valley view</p>
               </div>
               <div className="flex items-center gap-4 pb-2">
                 <div className="relative w-10 h-10">
-                  {/* <Image
-                    src={PlaceHolderImage}
+                  <Image
+                    src="/placeholderImage.jpg"
                     alt="Profile Picture"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-full"
-                  /> */}
+                  />
                 </div>
                 <p className="text-lg">Valley view</p>
               </div>
               <div className="flex items-center gap-4 pb-2">
                 <div className="relative w-10 h-10">
-                  {/* <Image
-                    src={PlaceHolderImage}
+                  <Image
+                    src="/placeholderImage.jpg"
                     alt="Profile Picture"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-full"
-                  /> */}
+                  />
                 </div>
                 <p className="text-lg">Valley view</p>
               </div>
             </div>
           </div>
-          <div className="py-5">
+          <div className="py-5" ref={checkoutDateRef}>
             <h3 className="text-2xl pb-3 font-semibold">
               Select checkout date
             </h3>
@@ -314,13 +323,19 @@ const RoomDetails = ({ roomData }) => {
         <div className="w-[40%] ml-20 py-5">
           <div className="w-full sticky top-32 pl-8 ">
             <div className="w-full border border-gray-200 rounded-xl shadow-xl p-6">
-              <p>
-                <span className="font-semibold text-2xl">
-                  ${price_per_night}
-                </span>
-                night
-              </p>
-              <div className="grid grid-cols-2 py-3">
+              <div className="flex justify-between items-center">
+                <p>
+                  <span className="font-semibold text-2xl">
+                    ${price_per_night}
+                  </span>
+                  night
+                </p>
+                <span className="text-gray-600 ">{reviews} reviews</span>
+              </div>
+              <div
+                className="grid grid-cols-2 py-3 cursor-pointer"
+                onClick={onScrollToCheckout}
+              >
                 <div className="border rounded-tl-xl text-lg p-3">
                   {formattedStartDate}
                 </div>
@@ -336,11 +351,15 @@ const RoomDetails = ({ roomData }) => {
                   <button
                     className="button w-full py-3 rounded-xl bg-[#fd5b61] text-white active:bg-[#ff7075] font-semibold text-lg"
                     onClick={handleReserve}
+                    disabled={isCheckout}
                   >
-                    Reserve
+                    {!isCheckout ? ' Reserve' : <Spinner />}
                   </button>
                 ) : (
-                  <button className="button w-full py-3 rounded-xl bg-[#fd5b61] text-white active:bg-[#ff7075] font-semibold text-lg">
+                  <button
+                    className="button w-full py-3 rounded-xl bg-[#fd5b61] text-white active:bg-[#ff7075] font-semibold text-lg"
+                    onClick={onScrollToCheckout}
+                  >
                     Check availability
                   </button>
                 )}
@@ -393,13 +412,13 @@ const RoomDetails = ({ roomData }) => {
 
             <div className="flex items-center gap-2 pb-3">
               <div className="relative h-10 w-10">
-                {/* <Image
-                  src={PlaceHolderImage}
+                <Image
+                  src="/placeholderImage.jpg"
                   alt="Profile Picture"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-full"
-                /> */}
+                />
               </div>
               <div>
                 <p>A private room with wifi that</p>
@@ -411,13 +430,13 @@ const RoomDetails = ({ roomData }) => {
 
             <div className="flex items-center gap-2 pb-3">
               <div className="relative h-10 w-10">
-                {/* <Image
-                  src={PlaceHolderImage}
+                <Image
+                  src="/placeholderImage.jpg"
                   alt="Profile Picture"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-full"
-                /> */}
+                />
               </div>
               <div>
                 <p>A private room with wifi that</p>
@@ -429,13 +448,13 @@ const RoomDetails = ({ roomData }) => {
 
             <div className="flex items-center gap-2 pb-3">
               <div className="relative h-10 w-10">
-                {/* <Image
-                  src={PlaceHolderImage}
+                <Image
+                  src="/placeholderImage.jpg"
                   alt="Profile Picture"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-full"
-                /> */}
+                />
               </div>
               <div>
                 <p>A private room with wifi that</p>
