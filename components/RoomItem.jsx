@@ -51,6 +51,8 @@ const RoomItem = ({ roomData }) => {
                   height={300}
                   width={300}
                   objectFit="cover"
+                  placeholder="blur"
+                  blurDataURL='/placeholderImage.jpg'
                 />
               </SwiperSlide>
             ))}

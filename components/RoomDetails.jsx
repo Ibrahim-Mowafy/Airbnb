@@ -140,6 +140,8 @@ const RoomDetails = ({ roomData }) => {
               alt="places"
               layout="fill"
               objectFit="cover"
+              placeholder="blur"
+              blurDataURL="/placeholderImage.jpg"
             />
           </div>
         ))}
