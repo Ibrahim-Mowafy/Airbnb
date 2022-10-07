@@ -57,6 +57,7 @@ const Header = ({ placeholder }) => {
         numberOfGuests: numberOfGuests,
       },
     });
+    resetInputHandler()
   };
 
   return (
