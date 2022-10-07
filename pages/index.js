@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 import RoomItem from '../components/RoomItem';
 import Categories from '../components/Categories';
 import { client } from '../lib/client';
-import { Toaster } from 'react-hot-toast';
 
 export default function Home({ exploreRooms }) {
   return (
