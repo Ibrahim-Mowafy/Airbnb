@@ -16,6 +16,22 @@ const Search = ({ searchResults }) => {
   const formattedEndDate = format(new Date(endDate), 'dd-MMMM-yy');
   const range = `${formattedStartDate} - ${formattedEndDate}`;
   // todo: adding head in page to adding description and title
+
+  if (searchResults.length === 0) {
+    return (
+      <>
+        <Header />
+        <main className="flex flex-col p-5 md:px-10 relative w-full h-full">
+          <h1 className="text-3xl font-bold mt-2 mb-6">Search</h1>
+
+          <p className="text-gray-500 max-w-lg">
+            There is no result by this location {location}
+          </p>
+        </main>
+      </>
+    );
+  }
+
   return (
     <>
       <Header
@@ -73,7 +89,6 @@ export async function getServerSideProps({ query: { location } }) {
   const searchResults = await client.fetch(
     `*[_type == "room" && about match '${location}*' || address match '${location}*' || country match '${location}*' || title match '${location}*']`
   );
-
   return {
     props: {
       searchResults,
