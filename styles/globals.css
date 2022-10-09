@@ -6,6 +6,11 @@
   }
 }
 @tailwind utilities;
+@layer utilities {
+  .filter-custom {
+    filter: contrast(calc(13 / 44));
+  }
+}
 
 html,
 body {
