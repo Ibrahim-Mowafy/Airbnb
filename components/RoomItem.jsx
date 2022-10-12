@@ -48,8 +48,8 @@ const RoomItem = ({ roomData }) => {
                   src={urlFor(image).url()}
                   alt="room"
                   layout="responsive"
-                  height={300}
-                  width={300}
+                  height={290}
+                  width={290}
                   objectFit="cover"
                   placeholder="blur"
                   blurDataURL='/placeholderImage.jpg'
@@ -85,13 +85,13 @@ const RoomItem = ({ roomData }) => {
         <div className="flex justify-between pt-2">
           <h4 className="font-semibold">{title}</h4>
           <div className="flex items-center text-md">
-            <StarIcon width={15} height={15} />
-            <span className="font-light">{rate}</span>
+            <StarIcon width={14} height={15} />
+            <span className="font-light pl-1">{rate}</span>
           </div>
         </div>
         <div className="text-gray-500 text-sm">{address}</div>
         <div className="text-gray-500 text-sm">Oct 18-23</div>
-        <div>
+        <div className='pt-1'>
           <span className="font-semibold text-sm">${price_per_night}</span>
 
           <span className="font-light ml-1">night</span>
