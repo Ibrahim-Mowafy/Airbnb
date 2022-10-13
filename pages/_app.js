@@ -7,6 +7,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import WishlistProvider from '../context/wishlist-context';
 import { Toaster } from 'react-hot-toast';
+import ModalProvider from '../context/modal-context';
+import { SessionProvider } from 'next-auth/react';
 
 const progress = new ProgressBar({
   // The size (height) of the progress bar.
@@ -29,15 +31,19 @@ Router.events.on('routeChangeStart', progress.start);
 Router.events.on('routeChangeComplete', progress.finish);
 Router.events.on('routeChangeError', progress.finish);
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <WishlistProvider>
-      {/* Toaster */}
-      <>
-        <Toaster position="bottom-left" />
-      </>
-      <Component {...pageProps} />
-    </WishlistProvider>
+    <SessionProvider session={session}>
+      <ModalProvider>
+        <WishlistProvider>
+          {/* Toaster */}
+          <>
+            <Toaster position="bottom-left" />
+          </>
+          <Component {...pageProps} />
+        </WishlistProvider>
+      </ModalProvider>
+    </SessionProvider>
   );
 }
 
