@@ -66,6 +66,12 @@ export default {
       title: 'About',
     },
     {
+      name: 'hostedBy',
+      type: 'reference',
+      title: 'Hosted By',
+      to: { type: 'user' },
+    },
+    {
       name: 'category',
       title: 'Category',
       type: 'string',
