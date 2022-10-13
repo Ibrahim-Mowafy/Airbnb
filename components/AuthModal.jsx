@@ -4,6 +4,8 @@ import { BsFacebook } from 'react-icons/bs';
 import { AiFillApple } from 'react-icons/ai';
 import { MdClose } from 'react-icons/md';
 import { ModalContext } from '../context/modal-context';
+import { signIn } from 'next-auth/react';
+// import { signUp } from 'next-auth-sanity/client';
 
 const Backdrop = ({ onCloseModal }) => {
   return (
@@ -14,7 +16,7 @@ const Backdrop = ({ onCloseModal }) => {
   );
 };
 
-const ModalOverlay = ({ onCloseModal }) => (
+const ModalOverlay = ({ onCloseModal, onSignWithGoogle }) => (
   <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[51] bg-white p-2 rounded-lg w-[30rem]">
     <div className="flex flex-col">
       <header className="border-b py-2 px-2.5 flex items-center">
@@ -77,7 +79,10 @@ const ModalOverlay = ({ onCloseModal }) => (
             </div>
           </button>
           <button className="button w-full py-2 rounded-lg font-semibold text-base border border-gray-400">
-            <div className="flex items-center justify-start ">
+            <div
+              className="flex items-center justify-start"
+              onClick={onSignWithGoogle}
+            >
               <FcGoogle className="text-xl" />
               <div className="flex-grow">Continue with Google</div>
             </div>
@@ -100,10 +105,17 @@ const AuthModal = () => {
   const closeModalHandler = () => {
     closeModal();
   };
+  const signingWithGoogle = () => {
+    signIn('google');
+  };
+
   return (
     <>
       <Backdrop onCloseModal={closeModalHandler} />
-      <ModalOverlay onCloseModal={closeModalHandler} />
+      <ModalOverlay
+        onCloseModal={closeModalHandler}
+        onSignWithGoogle={signingWithGoogle}
+      />
     </>
   );
 };
