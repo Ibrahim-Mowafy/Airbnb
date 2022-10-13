@@ -6,7 +6,7 @@ import { HomeIcon, HeartIcon } from '@heroicons/react/24/solid';
 
 const MapContainer = ({ searchResults, onHoverItems, addHeart }) => {
   const [selectedLocation, setSelectedLocation] = useState({});
-  const activeClassMarker = 'scale-110 bg-black text-white';
+  const activeClassMarker = 'scale-110 !bg-black text-white';
 
   if (searchResults.length === 0) return;
 
