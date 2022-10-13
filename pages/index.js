@@ -9,7 +9,7 @@ export default function Home({ exploreRooms }) {
   return (
     <>
       <Head>
-        <title>Airbnb</title>
+        <title>{'Airbnb'}</title>
         <meta
           name="description"
           content="Find vacation rentals, cabins, beach houses, unique homes and experiences around the world - all made possible by hosts on Airbnb."
@@ -62,12 +62,11 @@ export default function Home({ exploreRooms }) {
       {/* Categories */}
       <Categories />
 
-      <main className="mx-auto px-8 sm:px-16 pt-5 grid xl:grid-cols-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
+      <main className="mx-auto px-8 sm:px-16 pt-5 grid xl:grid-cols-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 gap-y-4">
         {exploreRooms?.map((roomData) => (
           <RoomItem key={roomData._id} roomData={roomData} />
         ))}
       </main>
-
       <Footer />
     </>
   );

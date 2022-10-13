@@ -22,8 +22,7 @@ const Search = ({ searchResults }) => {
       <>
         <Head>
           <title>
-            Airbnb | {location} - Vacation Rentals, Cabins, Beach Houses, Unique
-            Homes &amp; Experiences
+            {` Airbnb | ${location} - Vacation Rentals, Cabins, Beach Houses, Unique Homes Experiences`}
           </title>
         </Head>
         <Header />
