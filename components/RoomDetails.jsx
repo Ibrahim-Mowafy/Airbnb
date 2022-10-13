@@ -29,6 +29,7 @@ const RoomDetails = ({ roomData }) => {
     discount,
     reviews,
     service_fee,
+    hostedBy,
   } = roomData;
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -94,7 +95,7 @@ const RoomDetails = ({ roomData }) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
   };
-  
+
   const onScrollToCheckout = () => {
     checkoutDateRef.current.scrollIntoView();
   };
@@ -109,18 +110,21 @@ const RoomDetails = ({ roomData }) => {
     <div className="w-full lg:w-[60%]">
       <div className="flex justify-between items-center border-b pb-5">
         <div>
-          <h2 className="text-2xl">Room in boutique hotel hosted by Mikail</h2>
+          <h2 className="text-2xl">
+            Room in boutique hotel hosted by {hostedBy.name}
+          </h2>
           <p className="font-light text-xl">
             2 guests 1 bedroom 1 bed 1 private bath
           </p>
         </div>
-        <div className="relative h-20 w-20">
+        <div className="relative h-20 w-20 rounded-full overflow-hidden">
           <Image
-            src="/placeholderImage.jpg"
+            src={hostedBy.image || '/placeholderImage.jpg'}
             alt="Profile Picture"
             layout="fill"
             objectFit="cover"
-            className="rounded-full"
+            placeholder="blur"
+            blurDataURL="/placeholderImage.jpg"
           />
         </div>
       </div>

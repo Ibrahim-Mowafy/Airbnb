@@ -9,7 +9,7 @@ const details = ({ roomDetails }) => {
   return (
     <>
       <Head>
-        <title>{roomDetails.title} - Airbnb</title>
+        <title>{roomDetails.title + '- Airbnb'}</title>
       </Head>
       <Header />
       <main className="max-w-7xl mx-auto px-8 sm:px-16">
@@ -25,7 +25,11 @@ export default details;
 export async function getServerSideProps({ query }) {
   const roomId = query.roomId;
   const roomDetailsResponse = await client.fetch(
-    `*[_type == "room" && _id == '${roomId}'][0]`
+    `*[_type == "room" && _id == '${roomId}'][0]{
+      ...,hostedBy->{
+        name,image
+      }
+    }`
   );
 
   return {
