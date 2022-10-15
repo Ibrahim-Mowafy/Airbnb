@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 export const WishlistsContext = createContext({
   wishlist: [],
@@ -8,6 +8,9 @@ export const WishlistsContext = createContext({
 
 const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
+  useEffect(() => {
+    setWishlist(JSON.parse(localStorage.getItem('wishlist')));
+  }, []);
 
   const addRoomToWishlist = (roomData) => {
     setWishlist((currentWishList) => {
@@ -17,6 +20,7 @@ const WishlistProvider = ({ children }) => {
       if (roomIndex !== -1) return currentWishList;
       let updatedList = [...currentWishList];
       updatedList.push(roomData);
+      localStorage.setItem('wishlist', JSON.stringify(updatedList));
       return updatedList;
     });
   };
@@ -29,7 +33,7 @@ const WishlistProvider = ({ children }) => {
       if (roomIndex === -1) return currentWishList;
       let updatedList = [...currentWishList];
       updatedList.splice(roomIndex, 1);
-
+      localStorage.setItem('wishlist', JSON.stringify(updatedList));
       return updatedList;
     });
   };
