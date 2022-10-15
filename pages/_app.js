@@ -17,7 +17,7 @@ const progress = new ProgressBar({
 
   // Color of the progress bar.
   // Also used for the glow around the bar.
-  color: '#fe595e',
+  color: '#ff385c',
 
   // Class name used for the progress bar element.
   className: 'z-50',
@@ -50,3 +50,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 export default MyApp;
 
 // linear-gradient(to right, #E61E4D 0%, #E31C5F 50%, #D70466 100%)
+
+
+// #ff385c

@@ -185,7 +185,7 @@ const RoomDetails = ({ roomData }) => {
         <DateRange
           ranges={[selectionRange]}
           minDate={new Date()}
-          rangeColors={['#fd5b61']}
+          rangeColors={['#ff385c']}
           onChange={handleSelect}
           months={2}
           direction="horizontal"
@@ -222,7 +222,7 @@ const RoomDetails = ({ roomData }) => {
           <div>
             {range > 0 ? (
               <button
-                className="button w-full py-3 rounded-xl bg-[#fd5b61] text-white active:bg-[#ff7075] font-semibold text-lg"
+                className="button gradient-button w-full py-3 rounded-xl text-white font-semibold text-lg"
                 onClick={handleReserve}
                 disabled={isCheckout}
               >
@@ -230,7 +230,7 @@ const RoomDetails = ({ roomData }) => {
               </button>
             ) : (
               <button
-                className="button w-full py-3 rounded-xl bg-[#fd5b61] text-white active:bg-[#ff7075] font-semibold text-lg"
+                className="button gradient-button w-full py-3 rounded-xl text-white font-semibold text-lg"
                 onClick={onScrollToCheckout}
               >
                 Check availability

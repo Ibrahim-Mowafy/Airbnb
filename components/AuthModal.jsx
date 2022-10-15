@@ -62,7 +62,7 @@ const ModalOverlay = ({ onCloseModal, onSignWithGoogle }) => (
             </label>
           </div>
           <div>
-            <button className="button w-full py-2 rounded-lg bg-[#fd5b61] text-white active:bg-[#ff7075] font-semibold text-lg ">
+            <button className="gradient-button button text-white w-full py-2 rounded-lg font-semibold text-lg ">
               Continue
             </button>
           </div>

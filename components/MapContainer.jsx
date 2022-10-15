@@ -52,8 +52,8 @@ const MapContainer = ({ searchResults, onHoverItems, addHeart }) => {
                 )}
               </p>
             ) : (
-              <div className="bg-[#fd5b605e] rounded-full w-28 h-28 flex items-center justify-center">
-                <div className="bg-[#fd5b61] w-12 h-12 rounded-full flex items-center justify-center">
+              <div className="bg-[#ff708a7d] rounded-full w-32 h-32 flex items-center justify-center">
+                <div className="bg-accent w-12 h-12 rounded-full flex items-center justify-center">
                   <HomeIcon color="white" className="w-7" />
                 </div>
               </div>

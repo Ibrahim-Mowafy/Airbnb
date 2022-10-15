@@ -32,7 +32,7 @@ const wishlists = () => {
           </p>
           <div>
             <button
-              className="button py-2 px-5 rounded-lg mt-5 bg-[#fd5b61] text-white active:bg-[#ff7075] font-semibold text-lg "
+              className="gradient-button button py-2 px-5 rounded-lg mt-5 text-white  font-semibold text-lg "
               onClick={openModal}
             >
               Log in

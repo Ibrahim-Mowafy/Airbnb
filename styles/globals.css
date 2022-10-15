@@ -4,6 +4,9 @@
   .button {
     @apply px-4 py-2 border rounded-full cursor-pointer hover:shadow-lg active:scale-95 active:bg-gray-100 transition transform duration-150 ease-out;
   }
+  .gradient-button {
+    @apply bg-gradient-to-r from-[#ff385c] via-[#E31C5F] to-[#D70466] active:bg-gradient-to-r   active:from-[#D70466]  active:via-[#E31C5F] active:to-[#ff385c];
+  }
 }
 @tailwind utilities;
 @layer utilities {
@@ -41,7 +44,7 @@ a {
 } */
 
 input {
-  caret-color: #fd5b61;
+  caret-color: #ff385c;
 }
 
 ::-webkit-scrollbar {
@@ -49,7 +52,13 @@ input {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #fd5b61;
+  /* background-color: #ff385c; */
+  background-image: linear-gradient(
+    to bottom,
+    #e61e4d 0%,
+    #e31c5f 50%,
+    #d70466 100%
+  );
   border-radius: 40px;
 }
 

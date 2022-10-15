@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   MagnifyingGlassIcon,
   UserCircleIcon,
@@ -22,9 +22,20 @@ const Header = ({ placeholder }) => {
   const [endDate, setEndDate] = useState(new Date());
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [showDropDownMenu, setShowDropDownMenu] = useState(false);
+  const [screenSize, setScreenSize] = useState(undefined);
   const router = useRouter();
   const { isModalOpened, openModal } = useContext(ModalContext);
   const { data: session } = useSession();
+
+  useEffect(() => {
+    const handleResize = () => setScreenSize(window.innerWidth);
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate);
@@ -72,14 +83,25 @@ const Header = ({ placeholder }) => {
           onClick={() => router.push('/')}
           className="relative flex items-center h-10 cursor-pointer my-auto"
         >
-          <Image
-            src="https://links.papareact.com/qd3"
-            alt="Airbnb Logo"
-            layout="fill"
-            objectFit="contain"
-            objectPosition="left"
-            priority
-          />
+          {screenSize <= 900 ? (
+            <Image
+              src="/airbnb-icon.svg"
+              alt="Airbnb Logo"
+              layout="fill"
+              objectFit="contain"
+              objectPosition="left"
+              priority
+            />
+          ) : (
+            <Image
+              src="/airbnb-logo.svg"
+              alt="Airbnb Logo"
+              layout="fill"
+              objectFit="contain"
+              objectPosition="left"
+              priority
+            />
+          )}
         </div>
 
         <div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm md:pr-2">
@@ -91,7 +113,7 @@ const Header = ({ placeholder }) => {
             onChange={searchInputChangeHandler}
           />
           <MagnifyingGlassIcon
-            className="hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer"
+            className="hidden md:inline-flex h-8 bg-accent text-white rounded-full p-2 cursor-pointer"
             onClick={onSearch}
           />
         </div>
@@ -193,7 +215,7 @@ const Header = ({ placeholder }) => {
             <DateRangePicker
               ranges={[selectionRange]}
               minDate={new Date()}
-              rangeColors={['#fd5b61']}
+              rangeColors={['#ff385c']}
               onChange={handleSelect}
               months={2}
               direction="horizontal"
@@ -207,7 +229,7 @@ const Header = ({ placeholder }) => {
                 value={numberOfGuests}
                 onChange={numberOfGuestsChangeHandler}
                 type="number"
-                className="w-12 pl-2 text-xl outline-none text-red-400"
+                className="w-12 pl-2 text-xl outline-none text-accent"
                 min={1}
               />
             </div>
@@ -219,7 +241,7 @@ const Header = ({ placeholder }) => {
               >
                 Cancel
               </button>
-              <button onClick={onSearch} className="flex-grow text-red-400">
+              <button onClick={onSearch} className="flex-grow text-accent">
                 Search
               </button>
             </div>
