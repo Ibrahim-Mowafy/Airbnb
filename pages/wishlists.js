@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Head from 'next/head';
 import React, { useContext, useState } from 'react';
-import Header from '../components/Header';
-import MapContainer from '../components/MapContainer';
-import RoomItem from '../components/RoomItem';
+import { Header, MapContainer, RoomItem } from '../components';
 import { WishlistsContext } from '../context/wishlist-context';
 import { ModalContext } from '../context/modal-context';
 import { useSession } from 'next-auth/react';

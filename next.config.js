@@ -3,12 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: [
-      'links.papareact.com',
-      'cdn.sanity.io',
-      'a0.muscache.com',
-      'lh3.googleusercontent.com',
-    ],
+    domains: ['cdn.sanity.io', 'a0.muscache.com', 'lh3.googleusercontent.com'],
   },
   i18n: {
     locales: ['en'],
@@ -26,7 +21,7 @@ const nextConfig = {
     GOOGLE_SECRET: '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',
     SANITY_API_TOKEN:
       'skUhO8qiHcnodqQ7OGy6HFtFjcdl9VpNOIJMchFmqPF3Ijoo9FNcP8MjFSVniD3pZH7qGNxKv30NtFNg1BcLLtJ6d7mS6aPtcYitE2qxA8BZjwRuCJup0B0Mzq6ccwMQ1XUlxV6V9BA4Vwoi2QRVFc8vnUW9Yxi3L0hUggOSaEU83KUcd4Ai',
-      NEXTAUTH_SECRET :'bcJl/MwN8fi912dFJDxwZ57tSsv4LYM2v86H5tWMEQ4='
+    NEXTAUTH_SECRET: 'bcJl/MwN8fi912dFJDxwZ57tSsv4LYM2v86H5tWMEQ4=',
   },
 };
 

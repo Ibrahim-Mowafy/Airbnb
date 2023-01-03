@@ -1,21 +1,22 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-import { ShareIcon, HeartIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { format } from 'date-fns';
 import differenceInDays from 'date-fns/differenceInDays';
 import { DateRange } from 'react-date-range';
 import toast from 'react-hot-toast';
-import { BsDoorOpen } from 'react-icons/bs';
-import { MdOutlineEditCalendar } from 'react-icons/md';
-import { FaSwimmingPool } from 'react-icons/fa';
 import { urlFor } from '../lib/client';
 import MapContainer from './MapContainer';
 import getStripe from '../lib/getStripe';
-import { WishlistsContext } from '../context/wishlist-context';
 import Spinner from './spinner/Spinner';
+import { Navigation, Pagination } from 'swiper';
 import { placeOffers, thingsToKnow } from '../utils/constants';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper';
+// icons
+import { ShareIcon, HeartIcon } from '@heroicons/react/24/solid';
+import { BsDoorOpen } from 'react-icons/bs';
+import { MdOutlineEditCalendar } from 'react-icons/md';
+import { FaSwimmingPool } from 'react-icons/fa';
+import { WishlistsContext } from '../context/wishlist-context';
 
 const RoomDetails = ({ roomData }) => {
   const {
@@ -41,11 +42,8 @@ const RoomDetails = ({ roomData }) => {
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
-
     window.addEventListener('resize', handleResize);
-
     handleResize();
-
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -347,6 +345,63 @@ const RoomDetails = ({ roomData }) => {
     </>
   );
 
+  const roomImagesCarousel = (
+    <Swiper
+      navigation={true}
+      modules={[Navigation, Pagination]}
+      pagination={{ clickable: true }}
+      slidesPerView={1}
+    >
+      {images?.map((image) => (
+        <SwiperSlide key={image._key}>
+          <Image
+            src={urlFor(image).url()}
+            alt="room"
+            layout="responsive"
+            height={150}
+            width={300}
+            objectFit="cover"
+            placeholder="blur"
+            blurDataURL="/placeholderImage.jpg"
+          />
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+  const checkoutFooter = (
+    <section className="fixed lg:hidden bottom-0 w-full bg-white border-t py-5 z-10">
+      <div className="px-6">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col">
+            <span>
+              <span className="font-semibold mr-1">${price_per_night}</span>
+              night
+            </span>
+            <span className="font-semibold">
+              {format(new Date(startDate), 'MMM dd')} -{' '}
+              {format(new Date(endDate), 'MMM dd')}
+            </span>
+          </div>
+          {range > 0 ? (
+            <button
+              className="button gradient-button px-6 py-3 rounded-xl text-white font-semibold text-lg"
+              onClick={handleReserve}
+              disabled={isCheckout}
+            >
+              {!isCheckout ? ' Reserve' : <Spinner />}
+            </button>
+          ) : (
+            <button
+              className="button gradient-button px-6 py-3 rounded-xl text-white font-semibold text-lg"
+              onClick={onScrollToCheckout}
+            >
+              Check availability
+            </button>
+          )}
+        </div>
+      </div>
+    </section>
+  );
   return (
     <>
       <section className="max-w-7xl mx-auto px-8 sm:px-16">
@@ -366,29 +421,8 @@ const RoomDetails = ({ roomData }) => {
         <section className="hidden  w-full h-[28rem]  mt-5 rounded-xl  overflow-hidden md:grid grid-cols-4 grid-rows-2 gap-2">
           {roomImages}
         </section>
-        {/* //todo: adding some refactoring here */}
         <section className="block md:hidden mt-5 rounded-xl  overflow-hidden">
-          <Swiper
-            navigation={true}
-            modules={[Navigation, Pagination]}
-            pagination={{ clickable: true }}
-            slidesPerView={1}
-          >
-            {images?.map((image) => (
-              <SwiperSlide key={image._key}>
-                <Image
-                  src={urlFor(image).url()}
-                  alt="room"
-                  layout="responsive"
-                  height={150}
-                  width={300}
-                  objectFit="cover"
-                  placeholder="blur"
-                  blurDataURL="/placeholderImage.jpg"
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {roomImagesCarousel}
         </section>
 
         <section className="w-full pt-8 flex">
@@ -409,39 +443,7 @@ const RoomDetails = ({ roomData }) => {
           {thingsToKnowContent}
         </div>
       </section>
-
-      <div className="fixed lg:hidden bottom-0 w-full bg-white border-t py-5 z-10">
-        <div className="px-6">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col">
-              <span>
-                <span className="font-semibold mr-1">${price_per_night}</span>
-                night
-              </span>
-              <span className="font-semibold">
-                {format(new Date(startDate), 'MMM dd')} -{' '}
-                {format(new Date(endDate), 'MMM dd')}
-              </span>
-            </div>
-            {range > 0 ? (
-              <button
-                className="button gradient-button px-6 py-3 rounded-xl text-white font-semibold text-lg"
-                onClick={handleReserve}
-                disabled={isCheckout}
-              >
-                {!isCheckout ? ' Reserve' : <Spinner />}
-              </button>
-            ) : (
-              <button
-                className="button gradient-button px-6 py-3 rounded-xl text-white font-semibold text-lg"
-                onClick={onScrollToCheckout}
-              >
-                Check availability
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
+      {checkoutFooter}
     </>
   );
 };

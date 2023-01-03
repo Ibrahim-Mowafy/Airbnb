@@ -1,8 +1,5 @@
 import Head from 'next/head';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import RoomItem from '../components/RoomItem';
-import Categories from '../components/Categories';
+import { Header, Categories, RoomItem, Footer } from '../components';
 import { client } from '../lib/client';
 
 export default function Home({ exploreRooms }) {

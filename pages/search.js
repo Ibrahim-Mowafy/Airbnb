@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import { Header, Footer, MapContainer, RoomItem } from '../components';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
-import MapContainer from '../components/MapContainer';
 import { client } from '../lib/client';
-import RoomItem from '../components/RoomItem';
 import Head from 'next/head';
 
 const Search = ({ searchResults }) => {

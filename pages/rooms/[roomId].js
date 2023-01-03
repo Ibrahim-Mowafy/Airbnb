@@ -1,8 +1,5 @@
 import Head from 'next/head';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-
-import RoomDetails from '../../components/RoomDetails';
+import { Header, Footer, RoomDetails } from '../../components';
 import { client } from '../../lib/client';
 
 const details = ({ roomDetails }) => {
