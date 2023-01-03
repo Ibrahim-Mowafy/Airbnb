@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { ShareIcon, HeartIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { format } from 'date-fns';
@@ -14,6 +14,8 @@ import getStripe from '../lib/getStripe';
 import { WishlistsContext } from '../context/wishlist-context';
 import Spinner from './spinner/Spinner';
 import { placeOffers, thingsToKnow } from '../utils/constants';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper';
 
 const RoomDetails = ({ roomData }) => {
   const {
@@ -34,7 +36,18 @@ const RoomDetails = ({ roomData }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [isCheckout, setIsCheckout] = useState(false);
+  const [screenSize, setScreenSize] = useState(undefined);
   const checkoutDateRef = useRef();
+
+  useEffect(() => {
+    const handleResize = () => setScreenSize(window.innerWidth);
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const formattedStartDate = format(new Date(startDate), 'dd/MM/yyyy');
   const formattedEndDate = format(new Date(endDate), 'dd/MM/yyyy');
@@ -176,7 +189,7 @@ const RoomDetails = ({ roomData }) => {
           ))}
         </div>
       </div>
-      <div className="py-5" ref={checkoutDateRef}>
+      <div className="py-5 overflow-x-scroll" ref={checkoutDateRef}>
         <h3 className="text-2xl pb-3 font-semibold">Select checkout date</h3>
         <p className="text-gray-500 pb-5">
           Add your travel dates for exact pricing
@@ -187,7 +200,7 @@ const RoomDetails = ({ roomData }) => {
           minDate={new Date()}
           rangeColors={['#ff385c']}
           onChange={handleSelect}
-          months={2}
+          months={screenSize <= 800 ? 1 : 2}
           direction="horizontal"
         />
       </div>
@@ -200,7 +213,9 @@ const RoomDetails = ({ roomData }) => {
         <div className="w-full border border-gray-200 rounded-xl shadow-xl p-6">
           <div className="flex justify-between items-center">
             <p>
-              <span className="font-semibold text-2xl">${price_per_night}</span>
+              <span className="font-semibold text-2xl mr-1">
+                ${price_per_night}
+              </span>
               night
             </p>
             <span className="text-gray-600 ">{reviews} reviews</span>
@@ -334,37 +349,98 @@ const RoomDetails = ({ roomData }) => {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold pt-5">{title}</h1>
-      <div className="flex items-center justify-between pt-2">
-        <p>
-          {reviews} review . {country}
-        </p>
-        <div className="flex items-center space-x-2">
-          <div className="flex cursor-pointer hover:bg-gray-100 p-1">
-            <ShareIcon width={20} className="mr-2" />
-            Share
+      <section className="max-w-7xl mx-auto px-8 sm:px-16">
+        <h1 className="text-3xl font-semibold pt-5">{title}</h1>
+        <div className="flex items-center justify-between pt-2">
+          <p>
+            {reviews} review . {country}
+          </p>
+          <div className="flex items-center space-x-2">
+            <div className="flex cursor-pointer hover:bg-gray-100 p-1">
+              <ShareIcon width={20} className="mr-2" />
+              Share
+            </div>
+            {favoriteButton}
           </div>
-          {favoriteButton}
         </div>
-      </div>
-      <section className="w-full h-[28rem]  mt-5 rounded-xl  overflow-hidden grid grid-cols-4 grid-rows-2 gap-2">
-        {roomImages}
-      </section>
-      <section className="w-full pt-8 flex">
-        {/* Room Details */}
-        {roomDetails}
-        {/* Checkout Card */}
-        {checkoutCard}
-      </section>
-      <div className="border-b border-t py-5 w-full">
-        <h3 className="text-2xl pb-3 font-semibold">Where you will be</h3>
-        <div className="w-full h-[28rem]">
-          <MapContainer searchResults={[{ lat: lat, long: long }]} />
+        <section className="hidden  w-full h-[28rem]  mt-5 rounded-xl  overflow-hidden md:grid grid-cols-4 grid-rows-2 gap-2">
+          {roomImages}
+        </section>
+        {/* //todo: adding some refactoring here */}
+        <section className="block md:hidden mt-5 rounded-xl  overflow-hidden">
+          <Swiper
+            navigation={true}
+            modules={[Navigation, Pagination]}
+            pagination={{ clickable: true }}
+            slidesPerView={1}
+          >
+            {images?.map((image) => (
+              <SwiperSlide key={image._key}>
+                <Image
+                  src={urlFor(image).url()}
+                  alt="room"
+                  layout="responsive"
+                  height={150}
+                  width={300}
+                  objectFit="cover"
+                  placeholder="blur"
+                  blurDataURL="/placeholderImage.jpg"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </section>
+
+        <section className="w-full pt-8 flex">
+          {/* Room Details */}
+          {roomDetails}
+          {/* Checkout Card */}
+          {checkoutCard}
+        </section>
+
+        <div className="border-b border-t py-5 w-full">
+          <h3 className="text-2xl pb-3 font-semibold">Where you will be</h3>
+          <div className="w-full h-[28rem]">
+            <MapContainer searchResults={[{ lat: lat, long: long }]} />
+          </div>
         </div>
-      </div>
-      <div className='py-5 w-full border-b"'>
-        <h3 className="text-2xl pb-3 font-semibold">Things to know</h3>
-        {thingsToKnowContent}
+        <div className='py-5 w-full border-b"'>
+          <h3 className="text-2xl pb-3 font-semibold">Things to know</h3>
+          {thingsToKnowContent}
+        </div>
+      </section>
+
+      <div className="fixed lg:hidden bottom-0 w-full bg-white border-t py-5 z-10">
+        <div className="px-6">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col">
+              <span>
+                <span className="font-semibold mr-1">${price_per_night}</span>
+                night
+              </span>
+              <span className="font-semibold">
+                {format(new Date(startDate), 'MMM dd')} -{' '}
+                {format(new Date(endDate), 'MMM dd')}
+              </span>
+            </div>
+            {range > 0 ? (
+              <button
+                className="button gradient-button px-6 py-3 rounded-xl text-white font-semibold text-lg"
+                onClick={handleReserve}
+                disabled={isCheckout}
+              >
+                {!isCheckout ? ' Reserve' : <Spinner />}
+              </button>
+            ) : (
+              <button
+                className="button gradient-button px-6 py-3 rounded-xl text-white font-semibold text-lg"
+                onClick={onScrollToCheckout}
+              >
+                Check availability
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </>
   );

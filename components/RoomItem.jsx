@@ -52,7 +52,7 @@ const RoomItem = ({ roomData }) => {
                   width={290}
                   objectFit="cover"
                   placeholder="blur"
-                  blurDataURL='/placeholderImage.jpg'
+                  blurDataURL="/placeholderImage.jpg"
                 />
               </SwiperSlide>
             ))}
@@ -91,7 +91,7 @@ const RoomItem = ({ roomData }) => {
         </div>
         <div className="text-gray-500 text-sm">{address}</div>
         <div className="text-gray-500 text-sm">Oct 18-23</div>
-        <div className='pt-1'>
+        <div className="pt-1">
           <span className="font-semibold text-sm">${price_per_night}</span>
 
           <span className="font-light ml-1">night</span>
