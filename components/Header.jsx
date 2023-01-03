@@ -78,7 +78,7 @@ const Header = ({ placeholder }) => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-sm p-5 px-8 sm:px-16  overflow-x-scroll">
+      <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-sm p-5 px-8 sm:px-16">
         <div
           onClick={() => router.push('/')}
           className="relative flex items-center h-10 cursor-pointer my-auto"
