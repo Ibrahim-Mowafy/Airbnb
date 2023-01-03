@@ -9,7 +9,7 @@ import {
 import { GlobeAltIcon } from '@heroicons/react/24/outline';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-import { DateRangePicker } from 'react-date-range';
+import { DateRange } from 'react-date-range';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { ModalContext } from '../context/modal-context';
@@ -78,7 +78,7 @@ const Header = ({ placeholder }) => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-sm p-5 px-8 sm:px-16">
+      <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-sm p-5 px-8 sm:px-16  overflow-x-scroll">
         <div
           onClick={() => router.push('/')}
           className="relative flex items-center h-10 cursor-pointer my-auto"
@@ -104,7 +104,7 @@ const Header = ({ placeholder }) => {
           )}
         </div>
 
-        <div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm md:pr-2">
+        <div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm md:pr-2 hover:shadow-md transition-shadow">
           <input
             className="flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400"
             type="text"
@@ -118,8 +118,8 @@ const Header = ({ placeholder }) => {
           />
         </div>
         <div className="flex items-center justify-end space-x-4 text-gray-600">
-          <p className="hidden md:inline-block cursor-pointer">Become a Host</p>
-          <GlobeAltIcon className="h-6 cursor-pointer" />
+          <p className="hidden lg:inline-block cursor-pointer">Become a Host</p>
+          <GlobeAltIcon className="hidden lg:inline-block h-6 cursor-pointer" />
           <div
             className="relative flex items-center space-x-2 border-2 p-1  rounded-full cursor-pointer hover:shadow-md transition-all"
             onClick={() => {
@@ -212,12 +212,12 @@ const Header = ({ placeholder }) => {
 
         {searchInput && (
           <div className="flex flex-col col-span-3 mx-auto mt-4">
-            <DateRangePicker
+            <DateRange
               ranges={[selectionRange]}
               minDate={new Date()}
               rangeColors={['#ff385c']}
               onChange={handleSelect}
-              months={2}
+              months={screenSize <= 800 ? 1 : 2}
               direction="horizontal"
             />
             <div className="flex items-center border-b mb-4">
