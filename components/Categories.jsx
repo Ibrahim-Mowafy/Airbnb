@@ -43,10 +43,21 @@ const Categories = () => {
     <section className="categories pt-8 sticky top-20 bg-white z-40 shadow-sm  w-full">
       <div className="mx-auto px-8 sm:px-16 ">
         <Swiper
-          slidesPerView={12}
+          // slidesPerView={12}
           spaceBetween={40}
           grabCursor={true}
-
+          breakpoints={{
+            // when window width is >= 640px
+            320: {
+              width: 320,
+              slidesPerView: 3,
+            },
+            // when window width is >= 768px
+            768: {
+              width: 768,
+              slidesPerView: 7,
+            },
+          }}
           // modules={[Navigation]}
           // navigation={true}
         >
